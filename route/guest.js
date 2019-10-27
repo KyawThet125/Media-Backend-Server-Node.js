@@ -21,6 +21,13 @@ module.exports = (express) => {
             .then(result => res.json({ con: true, msg: result }))
             .catch(error => res.json({ con: false, msg: error }));
     });
+      router.get("/cat/:id",(req,res)=>{
+        let id = req.param('id');
+        Product.findProductById(id)
+            .then(result => res.json({ con: true, msg: result }))
+            .catch(error => res.json({ con: false, msg: error }));
+
+      })
       router.get("/galleries",(req, res) => {
         Gallery.all()
             .then(result => res.json({ con: true, msg: result }))

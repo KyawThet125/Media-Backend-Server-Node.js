@@ -29,7 +29,7 @@ module.exports = (express, passport) => {
             .catch(error => res.json({ con: false, msg: error }));
     });
     
-    router.post("/product/paginate/:start/:count", passport.authenticate('jwt', { session: false }), (req, res) => {
+    router.get("/product/paginate/:start/:count", passport.authenticate('jwt', { session: false }), (req, res) => {
         let start = req.param('start');
         let count = req.param('count');
         Product.paginate(Number(start), Number(count))

@@ -11,6 +11,7 @@ let JwtStrategy = require('passport-jwt').Strategy,
   ExtractJwt = require('passport-jwt').ExtractJwt;
  let User = require('./database/user');
 let path = require('path');
+var cors = require('cors');
     
 var options = {};
 options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -28,12 +29,12 @@ let myStrategy = new JwtStrategy(options,  (payload, done) =>{
   .catch(error=>done(error,null))
 
 })
-   
+ app.use(cors());  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 passport.use(myStrategy);
-app.use(express.static(path.join(__dirname + "./assets")));
-//to get easily image form browser//
+app.use(express.static(path.join(__dirname , "assets")));
+//to get easily image form browser//app.use(express.static(path.join(__dirname, 'asset')));
 
 app.use("/user", userRoute);
 app.use("/admin", adminRoute);
